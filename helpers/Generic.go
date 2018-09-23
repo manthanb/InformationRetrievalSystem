@@ -1,4 +1,4 @@
-package models
+package helpers
 
 import "strings"
 import "github.com/kljensen/snowball"

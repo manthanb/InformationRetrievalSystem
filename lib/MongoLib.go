@@ -1,4 +1,4 @@
-package models
+package lib
 
 import "github.com/astaxie/beego"
 import "gopkg.in/mgo.v2"

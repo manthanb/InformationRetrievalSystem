@@ -1,11 +1,11 @@
 package main
 
-import _ "search/routers"
-import "search/models"
+import _ "irs/routers"
+import "irs/lib"
 import "github.com/astaxie/beego"
 
 func main() {
-	models.ConnectToCache()
+	lib.ConnectToCache()
 	beego.Run()
-	models.CloseGlobalSession()
+	lib.CloseGlobalSession()
 }

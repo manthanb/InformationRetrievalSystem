@@ -1,4 +1,4 @@
-package models
+package helpers
 
 func SortDocuments(A []Documents) []Documents {
 	if len(A) <= 1 {

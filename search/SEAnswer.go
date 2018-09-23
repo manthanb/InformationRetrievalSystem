@@ -1,4 +1,7 @@
-package models
+package search
+
+import "irs/helpers"
+import "irs/lib"
 
 func SEAnswer(objAnswerRequest AnswerRequest) AnswerResponse {
 
@@ -6,13 +9,13 @@ func SEAnswer(objAnswerRequest AnswerRequest) AnswerResponse {
 	var objAnswerResponse AnswerResponse
 
 	// remove the stop words and the punctuations from the search string
-	strSearchString := ReduceString(objAnswerRequest.SearchString)
+	strSearchString := helpers.ReduceString(objAnswerRequest.SearchString)
 
 	// get the subject of the search string
-	strSearchString = Clean(strSearchString)
+	strSearchString = helpers.Clean(strSearchString)
 
 	// get the desired link from wiki database
-	bytAnswer := GetDataFromRedis(strSearchString)
+	bytAnswer := lib.GetDataFromRedis(strSearchString)
 
 	// copy link in the response object
 	objAnswerResponse.Answer = string(bytAnswer)

@@ -1,4 +1,4 @@
-package models
+package lib
 
 import "github.com/xuyu/goredis"
 import "github.com/astaxie/beego"

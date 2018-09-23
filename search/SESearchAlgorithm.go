@@ -1,6 +1,8 @@
-package models
+package search
 
 //import "fmt"
+import "irs/helpers"
+import "irs/lib"
 
 func SESearchAlgorithm(objSearchRequest SearchRequest) SearchResponse {
 
@@ -10,22 +12,22 @@ func SESearchAlgorithm(objSearchRequest SearchRequest) SearchResponse {
 	//fmt.Println("input " + objSearchRequest.SearchString)
 
 	// remove the stop words from search string
-	strSearchString := ReduceString(objSearchRequest.SearchString)
+	strSearchString := helpers.ReduceString(objSearchRequest.SearchString)
 
 	//fmt.Println("reduced " + strSearchString)
 
 	// tokenize the search string
-	arrSearchString := Tokenize(strSearchString)
+	arrSearchString := helpers.Tokenize(strSearchString)
 
 	// stem the search string
-	arrSearchString = Stem(arrSearchString)
+	arrSearchString = heloers.Stem(arrSearchString)
 
 	//fmt.Println("stem " + strSearchString)
 
 	//fmt.Println(arrSearchString)
 
 	// get the document ID of the document with highest rank
-	documents, err := GetWeightedDocuments(arrSearchString)
+	documents, err := lib.GetWeightedDocuments(arrSearchString)
 
 	// return a false status if the ranked document was not obtained
 	if err != nil {
@@ -41,7 +43,7 @@ func SESearchAlgorithm(objSearchRequest SearchRequest) SearchResponse {
 	//fmt.Println(documents)
 
 	// get the values of top n documents from the document map
-	arrSearchResults, err := GetBestDocuments(documents, int64(len(arrSearchString)))
+	arrSearchResults, err := lib.GetBestDocuments(documents, int64(len(arrSearchString)))
 
 	// return a false status if the document details were not obtained
 	if err != nil {

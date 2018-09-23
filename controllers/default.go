@@ -1,7 +1,8 @@
 package controllers
 
 import "github.com/astaxie/beego"
-import "search/models"
+import "irs/search"
+import "irs/models"
 import "encoding/json"
 
 type MainController struct {
@@ -15,8 +16,8 @@ func (c *MainController) SESearchAlgorithm() {
 	c.Ctx.Output.Header("Access-Control-Allow-Headers", "Content-Type, X-Requested-With")
 
 	// declare request and response objects for search algorithm
-	var objSearchRequest models.SearchRequest
-	var objSearchResponse models.SearchResponse
+	var objSearchRequest search.SearchRequest
+	var objSearchResponse search.SearchResponse
 
 	// get the JSON parameter from the request
 	strJsonQuery := c.Ctx.Input.Query(beego.AppConfig.String("requestJsonQuery"))
@@ -40,7 +41,7 @@ func (c *MainController) SESearchAlgorithm() {
 	}
 
 	// call the models method for search algorithm
-	objSearchResponse = models.SESearchAlgorithm(objSearchRequest)
+	objSearchResponse = search.SESearchAlgorithm(objSearchRequest)
 
 	// return the algorithm reponse
 	jsonObjSearchResponse, _ := json.Marshal(objSearchResponse)
@@ -78,7 +79,7 @@ func (c *MainController) SEWiki() {
 	}
 
 	// call the models method for search algorithm
-	objWikiResponse = models.SEWiki(objWikiRequest)
+	objWikiResponse = search.SEWiki(objWikiRequest)
 
 	// return the algorithm reponse
 	jsonObjWikiResponse, _ := json.Marshal(objWikiResponse)
@@ -116,7 +117,7 @@ func (c *MainController) SEAnswer() {
 	}
 
 	// call the models method for search algorithm
-	objAnswerResponse = models.SEAnswer(objAnswerRequest)
+	objAnswerResponse = search.SEAnswer(objAnswerRequest)
 
 	// return the algorithm reponse
 	jsonObjAnswerResponse, _ := json.Marshal(objAnswerResponse)

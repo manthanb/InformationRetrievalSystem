@@ -1,4 +1,7 @@
-package models
+package search
+
+import "search/helpers"
+import "search/lib"
 
 func SEWiki(objWikiRequest WikiRequest) WikiResponse {
 
@@ -6,22 +9,22 @@ func SEWiki(objWikiRequest WikiRequest) WikiResponse {
 	var objWikiResponse WikiResponse
 
 	// remove the stop words and the punctuations from the search string
-	strSearchString := ReduceString(objWikiRequest.SearchString)
+	strSearchString := helpers.ReduceString(objWikiRequest.SearchString)
 
 	// get the subject of the search string
-	strSearchString = Clean(strSearchString)
+	strSearchString = helpers.Clean(strSearchString)
 
 	// get the desired link from wiki database
-	strLink, strContent := GetLinkFromWiki(strSearchString)
+	strLink, strContent := lib.GetLinkFromWiki(strSearchString)
 
 	// copy link in the response object
 	objWikiResponse.Link = strLink
 	objWikiResponse.Content = strContent
 
-	if GetDataFromRedis(strSearchString) == nil {
+	if lib.GetDataFromRedis(strSearchString) == nil {
 
 		// store in redis
-		SetDataInRedis(strSearchString, strContent+" "+strLink)
+		lib.SetDataInRedis(strSearchString, strContent+" "+strLink)
 
 	}
 
